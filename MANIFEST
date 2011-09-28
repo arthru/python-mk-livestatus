@@ -1,0 +1,5 @@
+LICENSE
+MANIFEST.in
+README.rst
+setup.py
+mk_livestatus/__init__.py
