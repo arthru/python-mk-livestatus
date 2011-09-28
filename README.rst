@@ -36,7 +36,8 @@ TODO
 * Implement `get_column_list` to fetch a single column as a list.
 * Test with INET sockets.
 
-For more information please visit the `python-mk-livestatus website`_.
+For more information please visit the `python-mk-livestatus website`_. Information about MK Livestatus and it's query syntax is available at the `mk-livestatus website`_.
 
 .. _python-mk-livestatus website: http://git.fladi.at/python-mk-livestatus.git/
+.. _mk-livestatus website: http://mathias-kettner.de/checkmk_livestatus.html
 
