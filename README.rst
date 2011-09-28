@@ -6,7 +6,6 @@ Python MK Livestatus parser
 
 .. contents::
 
-
 Access the data returned from MK Livestatus queries as Python lists or dictionaries. 
 It does this by sending queries to the MK Livestatus UNIX socket and parses the returned rows. 
 Read/write permission to the UNIX socket are required.
@@ -39,6 +38,5 @@ TODO
 
 For more information please visit the `python-mk-livestatus website`_.
 
-.. _python-mk-livestatus website: http://git.fladi.at/python-mk-livestatus/
-
+.. _python-mk-livestatus website: http://git.fladi.at/python-mk-livestatus.git/
 
