@@ -27,3 +27,5 @@ pip-log.txt
 *.mo
 
 MANIFEST
+
+*.swp
