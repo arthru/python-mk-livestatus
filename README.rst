@@ -2,7 +2,7 @@ Python MK Livestatus parser
 ===========================
 
 :Author: Michael Fladischer
-:Version: 0.1
+:Version: 0.2
 
 .. contents::
 
@@ -17,27 +17,24 @@ Here a simple example to fetch the name and hostgroups for all servers in the UP
 
     >>> from mk_livestatus import Socket
     >>> s = Socket("/var/lib/icinga/rw/live")
-    >>> q = s.query(
-    ... """GET hosts
-    ... Columns: name groups
-    ... Filter: state = 0
-    ... Limit: 1
-    ... """)
-    >>> q.get_list()
+    >>> q = s.hosts.columns('name', 'groups').filter('state = 0')
+    >>> print q
+    GET hosts
+    Columns: name groups
+    Filter: state = 0
+	
+	
+    >>> q.call()
     [{'name': 'example.com', 'groups': ['ssh', 'snmp', 'smtp-server', 'ping-server', 'http-server', 'debian-server', 'apache2']}]
-    >>> q.get_dict('name')
-    {'example.com': {'name': 'b4b-highway.com', 'groups': ['ssh', 'snmp', 'smtp-server', 'ping-server', 'http-server', 'debian-server', 'apache2']}}
 
-The call to `get_list` returns the rows as a list of dictionaries while `get_dict` requires one argument which specifies the column name which is to be used as the key for the entries in the dictionaries.
+``s.hosts`` returns a Query to the ``hosts`` resources on Nagios. The ``columns`` and ``filter`` methods modify our query and return it, so we can chain the calls. The call to `call` method returns the rows as a list of dictionaries. 
 
-TODO
-----
+If you use xinetd to bind the Unix socket to a TCP socket (like explained `here <http://mathias-kettner.de/checkmk_livestatus.html#Livestatus%20via%20xinetd>`_), you can create the socket like :
 
-* Implement `get_column_list` to fetch a single column as a list.
-* Test with INET sockets.
+    >>> s = Socket(('192.168.1.1', 6557))
 
 For more information please visit the `python-mk-livestatus website`_. Information about MK Livestatus and it's query syntax is available at the `mk-livestatus website`_.
 
-.. _python-mk-livestatus website: http://git.fladi.at/python-mk-livestatus.git/
+.. _python-mk-livestatus website: https://github.com/arthru/python-mk-livestatus
 .. _mk-livestatus website: http://mathias-kettner.de/checkmk_livestatus.html
 

@@ -7,7 +7,7 @@ class Query(object):
         self._conn = conn
         self._resource = resource
         self._columns = []
-        self._filter = []
+        self._filters = []
 
     def call(self):
         if self._columns:
@@ -18,8 +18,8 @@ class Query(object):
         request = 'GET %s' % (self._resource)
         if self._columns:
             request += '\nColumns: %s' % (' '.join(self._columns))
-        if self._filter:
-            for filter_line in self._filter:
+        if self._filters:
+            for filter_line in self._filters:
                 request += '\nFilter: %s' % (filter_line)
         return request + '\n\n'
 
@@ -28,22 +28,24 @@ class Query(object):
         return self
 
     def filter(self, filter_str):
-        self._filter.append(filter_str)
+        self._filters.append(filter_str)
         return self
 
 
-class NagiosSocket(object):
-    def __init__(self, hostname, port):
-        self.hostname = hostname
-        self.port = port
+class Socket(object):
+    def __init__(self, peer):
+        self.peer = peer
 
     def __getattr__(self, name):
         return Query(self, name)
 
     def call(self, request, columns=None):
         try:
-            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            s.connect((self.hostname, self.port))
+            if len(self.peer) == 2:
+                s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            else:
+                s = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM) 
+            s.connect(self.peer)
             s.send(request)
             s.shutdown(socket.SHUT_WR)
             csv_lines = csv.DictReader(s.makefile(), columns, delimiter=';')
