@@ -2,12 +2,14 @@
 import os
 from distutils.core import setup
 
+import mk_livestatus
+
 def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 setup(name='python-mk-livestatus',
-      version='0.2',
-      description='access MK livestatus query results either as lists or dictionaries',
+      version=mk_livestatus.__version__,
+      description='Helps to query MK livestatus and return results as dictionaries',
       long_description=read('README.rst'),
       author='Michael Fladischer',
       author_email='michael@fladi.at',
