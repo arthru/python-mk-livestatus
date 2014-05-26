@@ -22,7 +22,7 @@ class Query(object):
 
     def __str__(self):
         request = 'GET %s' % (self._resource)
-        if self._columns:
+        if self._columns and any(self._columns):
             request += '\nColumns: %s' % (' '.join(self._columns))
         if self._filters:
             for filter_line in self._filters:
