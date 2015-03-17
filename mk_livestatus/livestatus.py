@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import socket
+import json
 
 
 __all__ = ['Query', 'Socket']
@@ -24,7 +25,7 @@ class Query(object):
         if self._filters:
             for filter_line in self._filters:
                 request += '\nFilter: %s' % (filter_line)
-        request += '\nOutputFormat: python\nColumnHeaders: on\n'
+        request += '\nOutputFormat: json\nColumnHeaders: on\n'
         return request
 
     def columns(self, *args):
@@ -52,10 +53,10 @@ class Socket(object):
             s.connect(self.peer)
             s.send(request)
             s.shutdown(socket.SHUT_WR)
-            data = []
             rawdata = s.makefile().read()
-            if rawdata:
-                data = eval(rawdata)
-            return [ dict(zip(data[0], value)) for value in data[1:] ]
+            if not rawdata:
+                return []
+            data = json.loads(rawdata)
+            return [dict(zip(data[0], value)) for value in data[1:]]
         finally:
             s.close()
