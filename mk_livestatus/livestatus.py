@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import csv
 import socket
 
 
@@ -16,8 +15,6 @@ class Query(object):
         self._filters = []
 
     def call(self):
-        if self._columns:
-            return self._conn.call(str(self), self._columns)
         return self._conn.call(str(self))
 
     def __str__(self):
@@ -27,7 +24,8 @@ class Query(object):
         if self._filters:
             for filter_line in self._filters:
                 request += '\nFilter: %s' % (filter_line)
-        return request + '\n\n'
+        request += '\nOutputFormat: python\nColumnHeaders: on\n'
+        return request
 
     def columns(self, *args):
         self._columns = args
@@ -45,7 +43,7 @@ class Socket(object):
     def __getattr__(self, name):
         return Query(self, name)
 
-    def call(self, request, columns=None):
+    def call(self, request):
         try:
             if len(self.peer) == 2:
                 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -54,7 +52,10 @@ class Socket(object):
             s.connect(self.peer)
             s.send(request)
             s.shutdown(socket.SHUT_WR)
-            csv_lines = csv.DictReader(s.makefile(), columns, delimiter=';')
-            return list(csv_lines)
+            data = []
+            rawdata = s.makefile().read()
+            if rawdata:
+                data = eval(rawdata)
+            return [ dict(zip(data[0], value)) for value in data[1:] ]
         finally:
             s.close()
