@@ -18,6 +18,8 @@ class Query(object):
     def call(self):
         return self._conn.call(str(self))
 
+    __call__ = call
+
     def __str__(self):
         request = 'GET %s' % (self._resource)
         if self._columns and any(self._columns):
