@@ -10,6 +10,8 @@ Access the data returned from MK Livestatus queries as Python lists or dictionar
 It does this by sending queries to the MK Livestatus UNIX socket and parses the returned rows. 
 Read/write permission to the UNIX socket are required.
 
+This package is known to be compatible with Python 2.7, 3.3, 34, pypy and pypy3.
+
 Usage
 -----
 

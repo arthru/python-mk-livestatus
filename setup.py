@@ -23,6 +23,7 @@ setup(
     download_url='http://pypi.python.org/pypi/python-mk-livestatus',
     packages=['mk_livestatus'],
     license='BSD',
+    test_requires=['tox', 'mock', 'pytest'],
     classifiers=[
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',

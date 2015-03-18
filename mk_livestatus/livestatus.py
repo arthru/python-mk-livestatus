@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from __future__ import unicode_literals
+
 import socket
 import json
 
@@ -16,7 +18,11 @@ class Query(object):
         self._filters = []
 
     def call(self):
-        return self._conn.call(str(self))
+        try:
+            data = bytes(str(self), 'utf-8')
+        except TypeError:
+            data = str(self)
+        return self._conn.call(data)
 
     __call__ = call
 
