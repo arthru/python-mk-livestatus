@@ -2,7 +2,7 @@ Python MK Livestatus parser
 ===========================
 
 :Author: Michael Fladischer
-:Version: 0.4-dev0
+:Version: 0.4
 
 .. contents::
 
