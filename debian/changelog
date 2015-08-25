@@ -1,3 +1,9 @@
+python-mk-livestatus (0.4-1) unstable; urgency=low
+
+  * Update to release 0.4 (closes: #796317).
+
+ -- Arthur Vuillard <arthur@hashbang.fr>  Tue, 25 Aug 2015 16:46:32 +0200
+
 python-mk-livestatus (0.2-1) unstable; urgency=low
 
   * Initial release (closes: #726708).
