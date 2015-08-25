@@ -1,0 +1,19 @@
+Source: python-mk-livestatus
+Maintainer: Arthur Vuillard <arthur@hashbang.fr>
+Uploaders: Cyril Bouthors <cyb@debian.org>, Cyril Bouthors <cyril@boutho.rs>, Cyril Bouthors <cyril@bouthors.org>
+Section: python
+Priority: optional
+Build-Depends: python-all (>= 2.6.6-3), debhelper (>= 7)
+Standards-Version: 3.9.4
+
+Package: python-mk-livestatus
+Architecture: all
+Depends: ${misc:Depends}, ${python:Depends}
+Description: Helps to query MK livestatus and return results as dictionary
+ Python MK Livestatus parser
+ ===========================
+ .
+ Access the data returned from MK Livestatus queries as Python lists or
+ dictionaries. 
+ It does this by sending queries to the MK Livestatus UNIX socket and parses the
+ returned rows. Read/write permission to the UNIX socket are required.

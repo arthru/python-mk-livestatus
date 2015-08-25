@@ -1,0 +1,5 @@
+python-mk-livestatus (0.2-1) unstable; urgency=low
+
+  * Initial release (closes: #726708).
+
+ -- Cyril Bouthors <cyril@bouthors.org>  Fri, 18 Oct 2013 14:29:36 +0200
